@@ -23,7 +23,6 @@ router.get('/:username', async( req, res)=>{
 
 router.get('/interest/:username', async( req, res)=>{
     try {
-        // console.log()
         let username = req.params.username
         const following = []
         const followingQuery = await Follow.find({ user : username}).lean().exec()
@@ -43,7 +42,6 @@ router.get('/interest/:username', async( req, res)=>{
             posts.sort((a,b)=>  -(new Date(a.createdAt).getTime()) + (new Date(b.createdAt).getTime()))
         }
 
-        console.log(posts)
         return res
         .status(200)
         .send(posts)
