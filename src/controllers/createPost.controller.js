@@ -20,7 +20,6 @@ router.post('/', async ( req, res)=>{
             }
         }
         const post = await Post.create(body)
-        console.log({createPost : post})
         return res
         .status(201)
         .send({ success : "success"})
