@@ -38,8 +38,7 @@ router.get('/:username', async(req, res)=>{
         }
         const postsQuery = await Post.find({ username}).lean().exec()
         postsQuery?.map(post=>{
-            const { title, image} = post
-            posts.push({title, image})
+            posts.push(post)
         })
         return res
         .status(200)
