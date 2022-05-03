@@ -41,7 +41,6 @@ router.get('/:username', async(req, res)=>{
             const { title, image} = post
             posts.push({title, image})
         })
-        console.log({posts})
         return res
         .status(200)
         .send({name,username,avatar,joined : MMYYYY,followers : followers.length,following: following.length ,posts})
