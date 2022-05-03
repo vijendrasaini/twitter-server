@@ -3,32 +3,13 @@ const User = require('../models/user.model')
 const Follow = require('../models/follow.model')
 const router = express.Router()
 
-router.post('/:usernameA/:usernameB', async ( req, res)=>{
+router.post('/:username/:usernameB', async ( req, res)=>{
     try {
-            let ua = req.params.usernameA
-            let ub = req.params.usernameB
-            const userBQuery = await User.findOne({username : ub})
-            if(!userBQuery)
-                return res
-                .status(400)
-                .send({
-                    status:"failure",
-                    reason:"explanation"
-                })
+        console.log({ u : req.params.username, ub  : req.params.usernameB})
             const status = await Follow.create({
-                celeb : ub,
-                user : ua
+                celeb : req.params.usernameB,
+                user : req.params.username
             })
-            
-        // if(user)
-        //     return res
-        //     .status(400)
-        //     .send(
-        //         {
-        //         status : "failure",   
-        //         reason : "User a or b not exits"
-        //         }
-        //     )
         return res
         .status(202)
         .send({  status: "success" })
