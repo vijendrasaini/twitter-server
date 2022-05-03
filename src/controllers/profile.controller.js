@@ -19,7 +19,7 @@ router.get('/:username', async(req, res)=>{
         const following = []
         const posts = []
 
-        const { name, joined, avatar} = await User.findOne({ user : username}).lean().exec()
+        const { name, joined, avatar} = await User.findOne({ username : username}).lean().exec()
         const MMDDYYYY = joined.split('/')
         const MMYYYY = [monthArr[MMDDYYYY[0]-1],MMDDYYYY[2]].join(" ")
         const followersQuery = await Follow.find({ celeb : username}).lean().exec()
