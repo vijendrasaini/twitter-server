@@ -46,7 +46,6 @@ router.get('/interest/:username', async( req, res)=>{
         .status(200)
         .send(posts)
     } catch (error) {
-        console.log(error.message)
         return res
         .status(500)
         .send({
