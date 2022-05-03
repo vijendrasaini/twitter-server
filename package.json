@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.29.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "mongoose": "^6.3.0"
+    "google-auth-library": "^8.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.0",
+    "uuid": "^8.3.2"
   }
 }
