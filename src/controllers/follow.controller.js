@@ -5,7 +5,6 @@ const router = express.Router()
 
 router.post('/:username/:usernameB', async ( req, res)=>{
     try {
-        console.log({ u : req.params.username, ub  : req.params.usernameB})
             const status = await Follow.create({
                 celeb : req.params.usernameB,
                 user : req.params.username
@@ -22,6 +21,28 @@ router.post('/:username/:usernameB', async ( req, res)=>{
     }
 })
 
+router.delete('/:username/:usernameB', async ( req, res)=>{
+    try {
+            const status = await Follow
+                                .findOneAndDelete(
+                                    { 
+                                        celeb : req.params.usernameB,
+                                        user : req.params.username
+                                    }
+                                )
+                                .lean()
+                                .exec()
+        return res
+        .status(202)
+        .send({  status: "success" })
+    } catch (error) {
+        return res
+        .status(500)
+        .send({
+            message : error.message
+        })
+    }
+})
 
 module.exports = router
 
