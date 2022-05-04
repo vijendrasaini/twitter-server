@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema(
             name : { type : String , required : true},
             title : { type : String },
             image : { type : String },
-            likes : {type : Number, required : false,default : 0}
+            likes : [{type : String}]
     },
     {
         versionKey : false,

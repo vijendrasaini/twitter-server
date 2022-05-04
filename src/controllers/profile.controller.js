@@ -64,7 +64,7 @@ router.get('/:username/:usernameB', async (req, res) => {
             .find({ username: usernameB })
             .lean()
             .exec()
-        postsQuery?.map(post => {
+        postsQuery?.sort((a,b)=>  -(new Date(a.createdAt).getTime()) + (new Date(b.createdAt).getTime()))?.map(post => {
             posts.push(post)
         })
 
@@ -78,7 +78,7 @@ router.get('/:username/:usernameB', async (req, res) => {
                 joined: MMYYYY,
                 followers: followers.length,
                 following: following.length,
-                posts,
+                posts : posts,
                 status
             })
     } catch (error) {
