@@ -49,7 +49,7 @@ router.post('/:username/:id', async (req, res) => {
         const result = await post.save()
         return res
             .status(201)
-            .send({ status: "success", likes : result.likes.length})
+            .send({ status: "success", likes: result.likes.length })
     } catch (error) {
         return res
             .status(201)
@@ -60,22 +60,25 @@ router.post('/:username/:id', async (req, res) => {
 
 router.get('/:username', async (req, res) => {
     try {
-        const result = await Post.aggregate([
-            {
-                $unwind : "$likes"
-            },
-            {
-                $match : {
-                    likes : req.params.username
-                }
-            }
-        ])
+        let posts = await Post.find({})
+        let result = []
+        if (posts) {
+            result = posts.filter(post => {
+                for (let i = 0; i < post.likes.length; i++)
+                    if (post.likes[i] == req.params.username)
+                        return true
+                return false
+            })
+        }
+        result = result.sort((a, b) => -(new Date(a.createdAt).getTime()) + (new Date(b.createdAt).getTime()))
+        console.log(result)
         return res
-        .status(200)
-        .send({
-            likedPosts : result
-        })
+            .status(200)
+            .send({
+                likedPosts: result
+            })
     } catch (error) {
+        console.log(error.message)
         return res
             .status(500)
             .status({ status: "failure" })
