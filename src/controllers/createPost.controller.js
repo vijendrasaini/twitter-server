@@ -47,13 +47,37 @@ router.post('/:username/:id', async (req, res) => {
             post.likes
                 .push(req.params.username)
         const result = await post.save()
-        console.log({ status: "success", likes : result.likes.length})
         return res
             .status(201)
             .send({ status: "success", likes : result.likes.length})
     } catch (error) {
         return res
             .status(201)
+            .status({ status: "failure" })
+    }
+})
+
+
+router.get('/:username', async (req, res) => {
+    try {
+        const result = await Post.aggregate([
+            {
+                $unwind : "$likes"
+            },
+            {
+                $match : {
+                    likes : req.params.username
+                }
+            }
+        ])
+        return res
+        .status(200)
+        .send({
+            likedPosts : result
+        })
+    } catch (error) {
+        return res
+            .status(500)
             .status({ status: "failure" })
     }
 })
