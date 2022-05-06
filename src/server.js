@@ -3,9 +3,7 @@ const cors = require('cors')
 
 const mongoConnector = require('./configs/database')
 
-// const flatController = require('./controller/flat.controller')
-// const { register, login } = require('./controller/user.controller')
-// const userController = require('./controllers/user.controller')
+
 const profileController = require('./controllers/profile.controller')
 const followController = require('./controllers/follow.controller')
 const createPostController = require('./controllers/createPost.controller')
